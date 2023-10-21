@@ -48,13 +48,13 @@ function displayQuestion() {
 
     quizApp[currentQuestion].answers.forEach((answer, i) => {
         const answerChoices = $(`<li class="answer">${answer}</li>`);
-        answerChoices.click(() => answerCheck(i));
+        answerChoices.click(() => answerChecker(i));
         choices.append(answerChoices)
     })
 }
 
 
-function answerCheck(userChoice) {
+function answerChecker(userChoice) {
     const correct = quizApp[currentQuestion].correctAnswer;
     
     if(userChoice == correct) {
@@ -62,7 +62,7 @@ function answerCheck(userChoice) {
         result.text("You got it right!").css('color', 'green');
     }
     else {
-        result.text("Correct answer is: " + quizApp[currentQuestion].answers[correctAnswer]).css('color', 'red');
+        result.text("Correct answer is: " + quizApp[currentQuestion].answers[correct]).css('color', 'red');
     }
     nextBtn.show();
     $('.answer').off('click') //disable other answers after the user chose the answer
@@ -81,13 +81,17 @@ $("#next").click(function(){
 });
 
 function showResult() {
-    questions.text(`You scored ${score} out of ${quizApp.length}`)
+    if(score == quizApp.length) {
+        questions.text(`Good job!! You scored ${score} out of ${quizApp.length}`)
+    }
+    else {
+        questions.text(`Too bad :( You scored ${score} out of ${quizApp.length}`)
+    }
     choices.empty();
     result.empty();
     nextBtn.hide();
     prevBtn.hide();
 }
- 
 
 
 displayQuestion();
