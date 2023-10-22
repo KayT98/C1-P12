@@ -45,6 +45,7 @@ const prevBtn = $('#prev');
 function displayQuestion() {
     questions.text(quizApp[currentQuestion].question);
     choices.empty(); //hide the answers
+    nextBtn.hide();
 
     quizApp[currentQuestion].answers.forEach((answer, i) => {
         const answerChoices = $(`<li class="answer">${answer}</li>`);
